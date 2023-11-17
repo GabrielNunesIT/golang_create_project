@@ -2,10 +2,11 @@ package createproject
 
 import (
 	"flag"
-	"golang_create_project/config"
 	"log"
 	"os"
 	"slices"
+
+	"github.com/GabrielNunesIT/golang_create_project/config"
 )
 
 // This is a func that will create folder and files for the project according to the project name
