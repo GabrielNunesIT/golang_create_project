@@ -12,6 +12,7 @@ import (
 // This is a func that will create folder and files for the project according to the project name
 
 var projectNameFlag = flag.String("projectName", "project-template", "Use this flag to specify the project name.")
+var goVersion = flag.String("goVersion", "1.21", "Use this flag to specify the go version to use.")
 
 func CreateProject() {
 	flag.Parse()
@@ -91,6 +92,16 @@ func createFiles(projectName string) (err error) {
 	}
 
 	file.WriteString("package cmd_" + projectName + "\n")
+	file.Close()
+
+	file, err = os.OpenFile(cmdPath+"/"+projectName+"/"+"go.mod", os.O_RDWR|os.O_CREATE, 0666)
+	if err != nil {
+		log.Fatal(err)
+		return err
+	}
+
+	file.WriteString("module " + projectName + "\n")
+	file.WriteString("go " + *goVersion + "\n")
 	file.Close()
 
 	return err
